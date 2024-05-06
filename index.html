@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doncar Burger</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <!-- Barra de navegación -->
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <img src="./images/logo_doncarb_250x250.jpeg" alt="Logo de Doncar Burger" width="250" height="250">
+            </div>
+            <ul class="menu">
+                <li><a href="#">Inicio</a></li>
+                <li><a href="#">Nosotros</a></li>
+                <li><a href="#">Comprar</a></li>
+                <li><a href="#">Sucursales</a></li>
+            </ul>
+            <div class="redes-sociales">
+                <a href="#"><img src="./images/facebooktextlogo_110.png" alt="Facebook"></a>
+                <a href="#"><img src="./images/logo-twitter_110.png" alt="Twitter"></a>
+                <a href="#"><img src="./images/instagramtextlogo_110.jpg" alt="Instagram"></a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main">
+        <section class="container">
+            <h1 class="titulo">LAS DONCAR BURGERS</h1>
+            <div class="hamburguesasDisponibles" id="hamburguesasDisponibles">
+                <!-- Esto se rellena con JS -->
+            </div>
+        </section>
+        <section class="container">
+            <h2 class="titulo">Carrito</h2>
+            <div class="carrito">
+                <div id="carrito-vacio">
+                    <h3>No hay productos en tu carrito</h3>
+                </div>
+                <div class="carrito-productos d-none" id="carrito-productos">
+                    <!-- Esto se rellena con JS -->
+                </div>
+                <div class="carrito-total">
+                    <h2>Total: <span id="carrito-total">$0</span></h2>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Botón de compra -->
+    <button class="comprar-button">Comprar</button>
+    
+    <!-- Elemento para mostrar el mensaje -->
+    <div id="mensaje-compra" class="mensaje-compra"></div> 
+    
+    <!-- Carrito -->
+    <div class="carrito">
+        <!-- Aquí se mostrará el contenido del carrito -->
+    </div>
+
+    <!-- Footer minimalista -->
+    <footer class="footer">
+        <div>
+            <p>Casa Central: Antonio Beruti 110 2° A - Ciudad Autonoma de Buenos Aires</p>
+            © 2024 || Doncar Burger™ || Todos los derechos reservados
+        </div>  
+    </footer>
+    
+    <script src="https://cdn.jsdelivr.net/npm/moment/moment.min.js"></script>
+
+    <script src="./js/main.js"></script>
+
+</body> 
+</html>       
