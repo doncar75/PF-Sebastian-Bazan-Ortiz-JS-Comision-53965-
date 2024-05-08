@@ -168,3 +168,80 @@ p {
     font-weight: bold;
     margin-bottom: 10px;
 }
+
+/* Estilos para tamaños de pantalla pequeños (móviles y tablets) */
+@media only screen and (max-width: 768px) {
+    /* Estilos para la sección de hamburguesas */
+    .burger-list {
+        flex-direction: column;
+    }
+    .burger-item {
+        margin-bottom: 10px;
+    }
+}
+
+/* Estilos para tamaños de pantalla muy pequeños (móviles) */
+@media only screen and (max-width: 600px) {
+    /* Estilos para la sección de hamburguesas */
+    .burger-list {
+        flex-direction: column;
+    }
+    .burger-item {
+        margin-bottom: 20px;
+    }
+
+    /* Estilos para el carrito */
+    .cart-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .cart-item .ingredient-list {
+        margin-top: 10px;
+    }
+}
+
+/* Estilos para tamaños de pantalla pequeños (móviles y tablets) */
+@media only screen and (max-width: 768px) {
+    /* Estilos para la sección de hamburguesas */
+    header {
+        padding: 10px 20px;
+    }
+
+    header h1 {
+        font-size: 24px;
+    }
+
+    .menu-btn {
+        display: block;
+    }
+
+    .burger-list {
+        flex-direction: column;
+    }
+    .burger-item {
+        margin-bottom: 10px;
+    }
+
+}
+
+/* Estilos para tamaños de pantalla medianos (desktops) */
+@media only screen and (min-width: 769px) and (max-width: 1024px) {
+    /* Estilos para la sección de hamburguesas */
+    .burger-list {
+        flex-direction: row;
+    }
+    .burger-item {
+        margin-bottom: 0;
+    }
+}
+
+/* Estilos para tamaños de pantalla grandes (desktops y laptops) */
+@media only screen and (min-width: 1025px) {
+    /* Estilos para la sección de hamburguesas */
+    .burger-list {
+        flex-direction: row;
+    }
+    .burger-item {
+        margin-bottom: 0;
+    }
+}
