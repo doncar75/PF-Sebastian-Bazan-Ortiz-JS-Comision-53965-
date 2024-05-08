@@ -59,18 +59,20 @@ const renderIngredientes = (ingredientes) => {
     return html;
 };
 
-// Función para agregar una hamburguesa al carrito
-function agregarHamburguesaAlCarrito(hamburguesa) {
-    carrito.push(hamburguesa);
-    renderCart();
-    guardarCarritoEnStorage();
+// Funciones para agregar hamburguesas e ingredientes extra al carrito
+function agregarAlCarrito(nombre, precio) {
+    console.log(`Agregando ${nombre} al carrito...`); // Nuevo
+    const carrito = cargarCarritoDelStorage();
+    carrito.push({ nombre, precio });
+    guardarCarritoEnStorage(carrito);
+    renderizarCarrito(carrito);
 }
 
 // Event listener para el botón de agregar al carrito
 const addToCartButtons = document.querySelectorAll(".add-to-cart-button");
 addToCartButtons.forEach((button) => {
     button.addEventListener("click", () => {
-        const hamburguesa = getHamburguesaSeleccionada();
+        const hamburguesa = getHamburguesaSeleccionada(button); // Pasa el botón como argumento
         if (hamburguesa) {
             agregarHamburguesaAlCarrito(hamburguesa);
         }
@@ -81,7 +83,7 @@ addToCartButtons.forEach((button) => {
 const addIngredientButtons = document.querySelectorAll(".add-ingredient-button");
 addIngredientButtons.forEach((button) => {
     button.addEventListener("click", () => {
-        const hamburguesa = getHamburguesaSeleccionada();
+        const hamburguesa = getHamburguesaSeleccionada(button); // Pasa el botón como argumento
         if (hamburguesa) {
             const ingredienteName = button.getAttribute("data-name");
             const ingredientePrice = parseFloat(button.getAttribute("data-price"));
@@ -96,11 +98,10 @@ addIngredientButtons.forEach((button) => {
 });
 
 // Función para obtener la hamburguesa seleccionada
-const getHamburguesaSeleccionada = () => {
+const getHamburguesaSeleccionada = (button) => {
     // Busca en el DOM la hamburguesa seleccionada
-    // Por ejemplo, puedes agregar una clase "selected" a la hamburguesa seleccionada
-    // y luego buscarla en el DOM
-    const selectedBurger = document.querySelector('.hamburguesasDisponibles.selected');
+    // Busca el elemento padre del botón, que es la hamburguesa
+    const selectedBurger = button.closest('.hamburguesasDisponibles');
     if (selectedBurger) {
         // Obtén los datos de la hamburguesa seleccionada
         const name = selectedBurger.querySelector('h3').textContent;
