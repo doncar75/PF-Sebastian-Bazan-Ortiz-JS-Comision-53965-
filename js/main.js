@@ -1,184 +1,185 @@
-// Función asíncrona para obtener los datos de las hamburguesas desde el archivo JSON
-async function obtenerHamburguesasDisponibles() {
+// Variables globales
+let cart = JSON.parse(localStorage.getItem('cart')) || [];
+const cartItemsElement = document.querySelector('.cart-items');
+const totalPriceElement = document.getElementById('total-price');
+const checkoutBtn = document.getElementById('checkout-btn');
+const paymentMethodElement = document.getElementById('payment-method');
+
+// Función asincrónica para cargar datos del menú desde un archivo JSON utilizando fetch
+async function loadMenuData() {
     try {
-        const response = await fetch('./data/hamburguesas.json');
-        if (!response.ok) {
-            throw new Error('Error al obtener los datos de las hamburguesas');
-        }
+        const response = await fetch('data/menu.json');
         const data = await response.json();
-        const hamburguesasDisponibles = data.hamburguesasDisponibles;
-        renderBurgers(hamburguesasDisponibles);
+        displayMenu(data.hamburguesasDisponibles);
     } catch (error) {
-        console.error(error);
-        // Mostrar un mensaje de error al usuario
-        alert('Ocurrió un error al obtener los datos de las hamburguesas. Por favor, inténtalo de nuevo más tarde.');
+        console.error('Error al cargar el menú:', error);
     }
 }
 
-// Llamar a la función para obtener los datos de las hamburguesas
-obtenerHamburguesasDisponibles();
+// Función para mostrar el menú de hamburguesas en la página
+function displayMenu(burgers) {
+    const burgerList = document.querySelector('.burger-list');
 
-const contenedorhamburguesasDisponibles = document.querySelector("#hamburguesasDisponibles");
-const carritoVacio = document.querySelector("#carrito-vacio");
-const carritoProductos = document.querySelector("#carrito-productos");
-const carritoTotal = document.querySelector("#carrito-total");
-const carrito = [];
-
-// Funcion para renderizar hamburguesas
-const renderBurgers = (hamburguesasDisponibles) => {
-    const hamburguesasDisponiblesContainer = document.getElementById("hamburguesasDisponibles");
-    hamburguesasDisponibles.forEach((hamburguesa) => {
-        const Div = document.createElement("div");
-        Div.classList.add("hamburguesasDisponibles");
-        Div.innerHTML = `
-            <div class="hamburguesa-imagen">
-                <img src="${hamburguesa.imagen}" alt="${hamburguesa.nombre}">
-            </div>
-            <div class="hamburguesa-detalles">
-                <h3>${hamburguesa.nombre}</h3>
-                <p>${hamburguesa.descripcion}</p>
-                <span class="price">$${hamburguesa.precio}</span>
-            </div>
-            <div class="ingredientes-disponibles">
-                ${renderIngredientes(hamburguesa.ingredientes)}
-            </div>
-            <button class="add-to-cart-button" data-name="${hamburguesa.nombre}" data-price="${hamburguesa.precio}">Agregar al carrito</button>
-        `;
-        hamburguesasDisponiblesContainer.appendChild(Div);
+    burgers.forEach(burger => {
+        const burgerItem = createBurgerItem(burger);
+        burgerList.appendChild(burgerItem);
     });
-};
-
-// Función para renderizar ingredientes
-const renderIngredientes = (ingredientes) => {
-    let html = "";
-    ingredientes.forEach((ingrediente) => {
-        html += `
-            <button class="add-ingredient-button" data-name="${ingrediente.nombre}" data-price="${ingrediente.precioAdicional}">Agregar ${ingrediente.nombre}</button>
-        `;
-    });
-    return html;
-};
-
-// Funciones para agregar hamburguesas e ingredientes extra al carrito
-function agregarAlCarrito(nombre, precio) {
-    console.log(`Agregando ${nombre} al carrito...`); // Nuevo
-    const carrito = cargarCarritoDelStorage();
-    carrito.push({ nombre, precio });
-    guardarCarritoEnStorage(carrito);
-    renderizarCarrito(carrito);
 }
 
-// Event listener para el botón de agregar al carrito
-const addToCartButtons = document.querySelectorAll(".add-to-cart-button");
-addToCartButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-        const hamburguesa = getHamburguesaSeleccionada(button); // Pasa el botón como argumento
-        if (hamburguesa) {
-            agregarHamburguesaAlCarrito(hamburguesa);
-        }
+// Función para crear un elemento de hamburguesa en el menú
+function createBurgerItem(burger) {
+    const burgerItem = document.createElement('div');
+    burgerItem.classList.add('burger-item');
+
+    const image = document.createElement('img');
+    image.src = burger.imagen;
+    image.alt = burger.nombre;
+
+    const name = document.createElement('h3');
+    name.textContent = burger.nombre;
+
+    const description = document.createElement('p');
+    description.textContent = burger.descripcion;
+
+    const price = document.createElement('p');
+    price.textContent = `Precio: $${burger.precio}`;
+
+    // Crear los botones de ingredientes
+    const ingredientButtons = document.createElement('div');
+    ingredientButtons.classList.add('ingredient-buttons');
+
+    burger.ingredientes.forEach(ingredient => {
+        const ingredientBtn = document.createElement('button');
+        ingredientBtn.textContent = `${ingredient.nombre} (+$${ingredient.precioAdicional})`;
+        ingredientBtn.addEventListener('click', () => addIngredientToCart(burger, ingredient));
+        ingredientButtons.appendChild(ingredientBtn);
     });
+
+    const addToCartBtn = document.createElement('button');
+    addToCartBtn.textContent = 'Agregar al Carrito';
+    addToCartBtn.addEventListener('click', () => addToCart(burger));
+
+    burgerItem.appendChild(image);
+    burgerItem.appendChild(name);
+    burgerItem.appendChild(description);
+    burgerItem.appendChild(price);
+    burgerItem.appendChild(ingredientButtons);
+    burgerItem.appendChild(addToCartBtn);
+
+    return burgerItem;
+}
+
+// Función para agregar una hamburguesa al carrito
+function addToCart(burger) {
+    cart.push({ ...burger, ingredientes: [] }); // Inicializar la lista de ingredientes vacía
+    updateCart();
+    saveCartToLocalStorage();
+}
+
+// Función para agregar un ingrediente al carrito
+function addIngredientToCart(burger, ingredient) {
+    const cartItem = cart.find(item => item.nombre === burger.nombre);
+    if (cartItem) {
+        cartItem.ingredientes.push(ingredient);
+        updateCart();
+        saveCartToLocalStorage();
+    }
+}
+
+// Función para eliminar una hamburguesa del carrito
+function removeFromCart(index) {
+    cart.splice(index, 1);
+    updateCart();
+    saveCartToLocalStorage();
+}
+
+// Función para actualizar el carrito de compras en la interfaz
+function updateCart() {
+    cartItemsElement.innerHTML = '';
+    let totalPrice = 0;
+
+    cart.forEach((item, index) => {
+        const cartItem = createCartItem(item, index);
+        cartItemsElement.appendChild(cartItem);
+
+        // Calcular el precio total incluyendo los ingredientes
+        const itemPrice = item.precio;
+        const ingredientPrice = item.ingredientes.reduce((total, ingredient) => total + ingredient.precioAdicional, 0);
+        const totalItemPrice = itemPrice + ingredientPrice;
+        totalPrice += totalItemPrice;
+    });
+
+    totalPriceElement.textContent = `$${totalPrice}`;
+}
+
+// Función para crear un elemento de hamburguesa en el carrito
+function createCartItem(item, index) {
+    const cartItem = document.createElement('div');
+    cartItem.classList.add('cart-item');
+
+    const name = document.createElement('h3');
+    name.textContent = item.nombre;
+
+    const price = document.createElement('p');
+    price.textContent = `$${item.precio}`;
+
+    const ingredientList = document.createElement('div');
+    ingredientList.classList.add('ingredient-list');
+    item.ingredientes.forEach(ingredient => {
+        const ingredientElement = document.createElement('span');
+        ingredientElement.textContent = ingredient.nombre;
+        ingredientList.appendChild(ingredientElement);
+    });
+
+    const removeBtn = document.createElement('button');
+    removeBtn.textContent = 'Eliminar';
+    removeBtn.addEventListener('click', () => removeFromCart(index));
+
+    cartItem.appendChild(name);
+    cartItem.appendChild(price);
+    cartItem.appendChild(ingredientList);
+    cartItem.appendChild(removeBtn);
+
+    return cartItem;
+}
+
+// Función para guardar el carrito en el localStorage
+function saveCartToLocalStorage() {
+    localStorage.setItem('cart', JSON.stringify(cart));
+}
+
+// Función para cargar el carrito desde el localStorage
+function loadCartFromLocalStorage() {
+    const savedCart = JSON.parse(localStorage.getItem('cart'));
+    if (savedCart) {
+        cart = savedCart;
+        updateCart();
+    }
+}
+
+// Evento al cargar la página para cargar los datos del menú y el carrito
+window.addEventListener('load', () => {
+    loadMenuData();
+    loadCartFromLocalStorage();
 });
 
-// Event listener para el botón de agregar ingrediente
-const addIngredientButtons = document.querySelectorAll(".add-ingredient-button");
-addIngredientButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-        const hamburguesa = getHamburguesaSeleccionada(button); // Pasa el botón como argumento
-        if (hamburguesa) {
-            const ingredienteName = button.getAttribute("data-name");
-            const ingredientePrice = parseFloat(button.getAttribute("data-price"));
-
-            hamburguesa.ingredientes.push({ nombre: ingredienteName, precioAdicional: ingredientePrice });
-            hamburguesa.precio += ingredientePrice;
-
-            agregarHamburguesaAlCarrito(hamburguesa);
-            renderHamburguesaSeleccionada(hamburguesa);
-        }
-    });
+// Evento para finalizar la compra
+checkoutBtn.addEventListener('click', () => {
+    const paymentMethod = paymentMethodElement.value;
+    if (paymentMethod === 'efectivo' || paymentMethod === 'tarjeta') {
+        alert(`¡Gracias por tu compra! Tu pago con ${paymentMethod} ha sido procesado.`);
+        limpiarCarrito(); // Limpia el carrito
+        totalPriceElement.textContent = '$0'; // Limpia el total acumulado
+        // Limpiar el total acumulado en el localStorage
+        localStorage.removeItem('cartTotal');
+    } else {
+        alert('Por favor, selecciona un método de pago válido.');
+    }
 });
 
-// Función para obtener la hamburguesa seleccionada
-const getHamburguesaSeleccionada = (button) => {
-    // Busca en el DOM la hamburguesa seleccionada
-    // Busca el elemento padre del botón, que es la hamburguesa
-    const selectedBurger = button.closest('.hamburguesasDisponibles');
-    if (selectedBurger) {
-        // Obtén los datos de la hamburguesa seleccionada
-        const name = selectedBurger.querySelector('h3').textContent;
-        const price = parseFloat(selectedBurger.querySelector('.price').textContent.replace('$', ''));
-        const ingredients = Array.from(selectedBurger.querySelectorAll('.add-ingredient-button')).map(button => ({
-            nombre: button.getAttribute('data-name'),
-            precioAdicional: parseFloat(button.getAttribute('data-price'))
-        }));
-        return { nombre: name, precio: price, ingredientes };
-    }
-    return null;
-};
-
-// Función para renderizar la hamburguesa seleccionada
-const renderHamburguesaSeleccionada = (hamburguesa) => {
-    // Agrega el código HTML necesario para mostrar la hamburguesa seleccionada
-    // Por ejemplo, puedes agregar un elemento en el DOM que muestre los detalles de la hamburguesa
-};
-
-// Función para guardar el carrito en el Storage
-function guardarCarritoEnStorage() {
-    localStorage.setItem("carrito", JSON.stringify(carrito));
-}
-
-// Función para cargar el carrito del Storage
-function cargarCarritoDelStorage() {
-    const carritoGuardado = localStorage.getItem("carrito");
-    if (carritoGuardado) {
-        carrito.push(...JSON.parse(carritoGuardado));
-        renderCart();
-    }
-}
-
-// Llamar a la función para cargar el carrito del Storage
-cargarCarritoDelStorage();
-
-// Función para renderizar el carrito
-const renderCart = () => {
-    carritoProductos.innerHTML = "";
-    let total = 0;
-
-    if (carrito.length === 0) {
-        carritoVacio.classList.remove("d-none");
-        carritoProductos.classList.add("d-none");
-        carritoTotal.textContent = "$0";
-        return;
-    }
-
-    carritoVacio.classList.add("d-none");
-    carritoProductos.classList.remove("d-none");
-
-    carrito.forEach((hamburguesa) => {
-        const Div = document.createElement("div");
-        Div.classList.add("carrito-product");
-        Div.innerHTML = `
-            <h3>${hamburguesa.nombre}</h3>
-            <span class="ingredientes">${renderIngredientes(hamburguesa.ingredientes)}</span>
-            <span class="price">$${hamburguesa.precio}</span>
-        `;
-        carritoProductos.appendChild(Div);
-
-        total += hamburguesa.precio;
-    });
-
-    carritoTotal.textContent = `$${total}`;
-};
-
-// Event listener para el botón de comprar
-const comprarButton = document.querySelector(".comprar-button");
-comprarButton.addEventListener("click", () => {
-    const totalAPagar = document.querySelector("#carrito-total").textContent;
-    mostrarMensajeCompra(totalAPagar); // Llama a la función para mostrar el mensaje
-});
-
-// Función para mostrar el mensaje de agradecimiento y el monto total a pagar
-function mostrarMensajeCompra(montoTotal) {
-    const mensaje = `Monto total a pagar: ${montoTotal}. Gracias por su compra.`;
-    const mensajeCompraElement = document.querySelector("#mensaje-compra");
-    mensajeCompraElement.textContent = mensaje;
+// Función para limpiar el carrito
+function limpiarCarrito() {
+    cart = []; // Vacía el array de carrito
+    updateCart(); // Actualiza la interfaz del carrito
+    saveCartToLocalStorage(); // Guarda el carrito vacío en el localStorage
 }

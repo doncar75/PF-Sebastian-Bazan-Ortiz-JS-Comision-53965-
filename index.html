@@ -7,71 +7,54 @@
     <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
-    <!-- Barra de navegación -->
     <header>
-        <nav class="navbar">
-            <div class="logo">
-                <img src="./images/logo_doncarb_250x250.jpeg" alt="Logo de Doncar Burger" width="250" height="250">
-            </div>
-            <ul class="menu">
-                <li><a href="#">Inicio</a></li>
-                <li><a href="#">Nosotros</a></li>
-                <li><a href="#">Comprar</a></li>
-                <li><a href="#">Sucursales</a></li>
+        <img src="./images/logo_doncarb_250x250.jpeg" alt="Logo de Doncar Burger" class="logo">
+        <h1 class="title">DONCAR BURGER</h1>
+        <nav>
+            <ul>
+                <li><a href="#">Menú</a></li>
+                <li><a href="#">Carrito</a></li>
             </ul>
-            <div class="redes-sociales">
-                <a href="#"><img src="./images/facebooktextlogo_110.png" alt="Facebook"></a>
-                <a href="#"><img src="./images/logo-twitter_110.png" alt="Twitter"></a>
-                <a href="#"><img src="./images/instagramtextlogo_110.jpg" alt="Instagram"></a>
-            </div>
         </nav>
     </header>
 
-    <main class="main">
-        <section class="container">
-            <h1 class="titulo">LAS DONCAR BURGERS</h1>
-            <div class="hamburguesasDisponibles" id="hamburguesasDisponibles">
-                <!-- Esto se rellena con JS -->
-            </div>
+    <main>
+        <section id="menu">
+            <h2>Nuestras Hamburguesas</h2>
+            <div class="burger-list"></div>
         </section>
-        <section class="container">
-            <h2 class="titulo">Carrito</h2>
-            <div class="carrito">
-                <div id="carrito-vacio">
-                    <h3>No hay productos en tu carrito</h3>
-                </div>
-                <div class="carrito-productos d-none" id="carrito-productos">
-                    <!-- Esto se rellena con JS -->
-                </div>
-                <div class="carrito-total">
-                    <h2>Total: <span id="carrito-total">$0</span></h2>
-                </div>
+
+        <section id="cart">
+            <h2>Carrito de Compras</h2>
+            <div class="cart-items"></div>
+            <div class="cart-total">
+                <p>Total: <span id="total-price">$0</span></p>
+                <button id="checkout-btn">Finalizar Compra</button>
             </div>
         </section>
     </main>
 
-    <!-- Botón de compra -->
-    <button class="comprar-button">Comprar</button>
-    
-    <!-- Elemento para mostrar el mensaje -->
-    <div id="mensaje-compra" class="mensaje-compra"></div> 
-    
-    <!-- Carrito -->
-    <div class="carrito">
-        <!-- Aquí se mostrará el contenido del carrito -->
-    </div>
-
-    <!-- Footer minimalista -->
-    <footer class="footer">
-        <div>
-            <p>Casa Central: Antonio Beruti 110 2° A - Ciudad Autonoma de Buenos Aires</p>
-            © 2024 || Doncar Burger™ || Todos los derechos reservados
-        </div>  
+    <footer>
+        <div class="footer-container">
+            <p>&copy; 2024 Doncar Burger. Todos los derechos reservados.</p>
+            <!-- Enlaces a redes sociales -->
+            <div class="social-links">
+                <a href="https://www.facebook.com/tupagina" target="_blank" rel="noopener noreferrer">
+                    <img src="./images/facebooktextlogo_110.png" alt="Facebook">
+                </a>
+                <a href="https://www.twitter.com/tupagina" target="_blank" rel="noopener noreferrer">
+                    <img src="./images/logo-twitter_110.png" alt="Twitter">
+                </a>
+                <a href="https://www.instagram.com/tupagina" target="_blank" rel="noopener noreferrer">
+                    <img src="./images/instagramtextlogo_110.jpg" alt="Instagram">
+                </a>
+            </div>
+            <p>Domicilio: Antonio Beruti 110 2° A|Ciudad Autonoma de Buenos Aires</p>
+        </div>
     </footer>
     
+    
     <script src="https://cdn.jsdelivr.net/npm/moment/moment.min.js"></script>
-
     <script src="./js/main.js"></script>
-
-</body> 
-</html>       
+</body>
+</html>

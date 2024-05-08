@@ -1,130 +1,170 @@
-@import url('https://fonts.googleapis.com/css2?family=Average+Sans&display=swap');
+/* Estilos generales */
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
+body {
+    font-family: Arial, sans-serif;
+    background-color: bisque;
+}
 
-* {
-    margin : 0;
-    padding : 0;
-    box-sizing : border-box;
-    }
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
-    body {
-    background-color : rgb(254, 229, 196);
-    }
+.title{
+    font-size: 4rem;
+    text-shadow: 6px 6px 10px whitesmoke;
+}
+header nav ul {
+    list-style-type: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
 
-    .navbar {
-        display: flex;
-        background-color: rgb(254, 229, 196);
-        padding: 20px;
-        margin: 0;
-        border: 0.25rem solid burlywood;
-    }
+header nav ul li {
+    margin-left: 20px;
+}
+
+header nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.5rem;
+}
+
+main {
+    padding: 20px;
+}
+
+section {
+    margin-bottom: 40px;
+}
+
+h2 {
+    margin-top: 0;
+    text-align: center;
+    font-size: 2.25rem;
+}
+
+/* Estilos del menú de hamburguesas */
+.burger-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-gap: 5px;
+}
+
+.burger-item {
+    border: 5px solid #655656;
+    border-radius: 8%;
+    padding: 20px;
+    text-align: center;
+    background-color: burlywood;
     
-    .navbar > * {
-        margin-right: 10px; 
-    }
-    
-    .navbar > *:last-child {
-        margin-right: 0; 
-    }
-    
+}
 
-    .logo img {
-    width : 250px;
-    height : 250px;
-    align-items : center;
-    padding-right : 2rem;
-    margin-right : 2rem;
-    }
-
-    .menu {
-    list-style : none;
-    padding : 2rem;
-    margin : 2rem;
-    }
-
-    .menu li {
-    margin-bottom : 0.25rem;
-    justify-content : center;
-    align-content : space-around;
-    font-size : 1.5rem;
-    }
-
-    .menu a {
-    text-decoration : none;
-    color : #333;
-    font-weight : bold;
-    }
-
-    .redes-sociales {
-    display : flex;
-    flex-direction : column;
-    align-content : center;
-    gap : 1.5rem;
-    }
-    
-    .titulo{
-        display: flex;
-        justify-content: center;
-        font-size: 2rem;
-        color: red;
-        text-decoration: underline;
-        text-shadow: 3px 3px 5px #5a4646 ;
-    }
-
-    
-    .contenedor {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        grid-gap: 10px;
-        justify-content: center;
-    }
-
-    .hamburguesasDisponibles {
-        border: 1px solid #ccc;
-        padding: 10px;
-        text-align: center;
-    }
-
-    .hamburguesa-imagen {
-        margin-bottom: 10px;
-    }
-
-    .hamburguesa-imagen img {
-        max-width: 100%;
-        height: auto;
-    }
-
-    .hamburguesa-detalles {
-        margin-bottom: 10px;
-    }
-
-    .ingredientes-disponibles {
-        margin-bottom: 10px;
-    }
-
-    .add-to-cart-button {
-        background-color: #4CAF50;
-        color: white;
-        padding: 5px 10px;
-        border: none;
-        cursor: pointer;
-    }
-
-    .carrito-productos {
-        border: 1px solid #ccc;
-        padding: 10px;
-        margin-bottom: 10px;
-    }
-
-    .d-none {
-        display: none;
-    }
+.burger-item img {
+    max-width: 100%;
+    height: auto;
+}
 
 
-    
-    .footer {
-        text-align: center;
-        padding: 20px;
-        background-color: #333;
-        color: #fff;
-    }
+.burger-item p {
+    margin-bottom: 10px;
+}
+
+.burger-item button {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+/* Estilos del carrito de compras */
+.cart-items {
+    border: 5px solid #141212;
+    padding: 20px;
+    background-color: rgb(222, 181, 128);
+}
+
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.cart-item h3 {
+    margin: 0;
+}
+
+.cart-item button {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 5px 10px;
+    cursor: pointer;
+
+}
+
+.cart-total {
+    text-align: right;
+    margin-top: 20px;
+}
+
+.cart-total button {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+footer {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.social-links img {
+    height: 30px;
+    margin: 10px;
+}
+
+.social-links a {
+    text-decoration: none;
+    color: #fff;
+}
+
+.social-links a:hover {
+    color: #ccc;
+}
+
+p {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}

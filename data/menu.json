@@ -1,0 +1,64 @@
+{
+    "hamburguesasDisponibles": [
+        {
+            "nombre": "Hamburguesa Clásica",
+            "descripcion": "Con lechuga y tomate",
+            "precio": 5000,
+            "imagen": "../images/Hamburguesa_lechuga_tomate.jpg",
+            "ingredientes": [
+                {
+                    "nombre": "Chedar",
+                    "precioAdicional": 1500
+                },
+                {
+                    "nombre": "Bacon",
+                    "precioAdicional": 2000
+                }
+            ]
+        },
+        {
+            "nombre": "Hamburguesa con Cheddar",
+            "descripcion": "Con queso cheddar",
+            "precio": 4500,
+            "imagen": "./images/Hamburguesa_chedar.jpg",
+            "ingredientes": [
+                {
+                    "nombre": "Bacon",
+                    "precioAdicional": 2000
+                }
+            ]
+        },
+        {
+            "nombre": "Hamburguesa Doble",
+            "descripcion": "Con lechuga, tomate y cheddar",
+            "precio": 8500,
+            "imagen": "./images/Hamburguesa_doble.jpg",
+            "ingredientes": [
+                {
+                    "nombre": "Bacon",
+                    "precioAdicional": 2000
+                },
+                {
+                    "nombre": "Huevo",
+                    "precioAdicional": 1000
+                }
+            ]
+        },
+        {
+            "nombre": "Hamburguesa Vegana",
+            "descripcion": "Con lechuga y tomate",
+            "precio": 9900,
+            "imagen": "./images/hamburguesa_vegana.jpg",
+            "ingredientes": [
+                {
+                    "nombre": "Tofu",
+                    "precioAdicional": 3000
+                },
+                {
+                    "nombre": "Queso Vegano",
+                    "precioAdicional": 2500
+                }
+            ]
+        }
+    ]
+}
