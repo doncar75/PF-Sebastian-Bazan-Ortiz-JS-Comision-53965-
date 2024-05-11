@@ -48,12 +48,15 @@ function createBurgerItem(burger) {
     const ingredientButtons = document.createElement('div');
     ingredientButtons.classList.add('ingredient-buttons');
 
+    // En createBurgerItem:
     burger.ingredientes.forEach(ingredient => {
         const ingredientBtn = document.createElement('button');
         ingredientBtn.textContent = `${ingredient.nombre} (+$${ingredient.precioAdicional})`;
         ingredientBtn.addEventListener('click', () => addIngredientToCart(burger, ingredient));
         ingredientButtons.appendChild(ingredientBtn);
+        ingredientBtn.dataset.burgerName = burger.nombre; // Agregar un atributo de datos para identificar la hamburguesa
     });
+
 
     const addToCartBtn = document.createElement('button');
     addToCartBtn.textContent = 'Agregar al Carrito';
@@ -76,14 +79,52 @@ function addToCart(burger) {
     saveCartToLocalStorage();
 }
 
+// Función para mostrar el modal
+function showModal() {
+    const modal = document.getElementById("myModal");
+    modal.style.display = "block";
+
+    // Botón de cerrar el modal
+    const span = document.getElementsByClassName("close")[0];
+    span.onclick = function () {
+        modal.style.display = "none";
+    }
+
+    // Cerrar el modal haciendo clic fuera del contenido
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+}
+
+const ingredientCount = {};
+
 // Función para agregar un ingrediente al carrito
 function addIngredientToCart(burger, ingredient) {
     const cartItem = cart.find(item => item.nombre === burger.nombre);
     if (cartItem) {
-        cartItem.ingredientes.push(ingredient);
-        updateCart();
-        saveCartToLocalStorage();
+        // Verificar si el ingrediente ya está en el carrito
+        const existingIngredient = cartItem.ingredientes.find(item => item.nombre === ingredient.nombre);
+        if (existingIngredient) {
+            // Verificar si se ha alcanzado el límite de cantidad del ingrediente
+            if (ingredientCount[ingredient.nombre] && ingredientCount[ingredient.nombre] >= 1) {
+                showModal();
+                return;
+            }
+            // Incrementar el contador de veces que se agrega el ingrediente
+            ingredientCount[ingredient.nombre] = (ingredientCount[ingredient.nombre] || 0) + 1;
+        } else {
+            // Si el ingrediente no está en el carrito, agregarlo
+            cartItem.ingredientes.push(ingredient);
+            updateCart();
+            saveCartToLocalStorage();
+        }
     }
+    // Actualizar el carrito después de agregar el ingrediente
+    updateCart();
+    // Guardar el carrito en el localStorage
+    saveCartToLocalStorage();
 }
 
 // Función para eliminar una hamburguesa del carrito
@@ -113,6 +154,7 @@ function updateCart() {
 }
 
 // Función para crear un elemento de hamburguesa en el carrito
+// Función para crear un elemento de hamburguesa en el carrito
 function createCartItem(item, index) {
     const cartItem = document.createElement('div');
     cartItem.classList.add('cart-item');
@@ -126,8 +168,11 @@ function createCartItem(item, index) {
     const ingredientList = document.createElement('div');
     ingredientList.classList.add('ingredient-list');
     item.ingredientes.forEach(ingredient => {
+        // Agregar la cantidad de veces que se ha agregado cada ingrediente
+        const ingredientCountText = document.createTextNode(` x${ingredientCount[ingredient.nombre] || 1} `);
         const ingredientElement = document.createElement('span');
         ingredientElement.textContent = ingredient.nombre;
+        ingredientElement.appendChild(ingredientCountText);
         ingredientList.appendChild(ingredientElement);
     });
 
@@ -165,16 +210,25 @@ window.addEventListener('load', () => {
 
 // Evento para finalizar la compra
 checkoutBtn.addEventListener('click', () => {
-    const paymentMethod = paymentMethodElement.value;
-    if (paymentMethod === 'efectivo' || paymentMethod === 'tarjeta') {
-        alert(`¡Gracias por tu compra! Tu pago con ${paymentMethod} ha sido procesado.`);
-        limpiarCarrito(); // Limpia el carrito
-        totalPriceElement.textContent = '$0'; // Limpia el total acumulado
-        // Limpiar el total acumulado en el localStorage
-        localStorage.removeItem('cartTotal');
-    } else {
-        alert('Por favor, selecciona un método de pago válido.');
-    }
+    // Mostrar mensaje de agradecimiento en el modal
+    const modalContent = document.querySelector('.modal-content');
+    modalContent.innerHTML = `
+        <p class="centerM">¡Muchas gracias por su compra!</p>
+    `;
+
+    // Mostrar el modal
+    const modal = document.getElementById("myModal");
+    modal.style.display = "block";
+
+    // Cerrar el modal al hacer clic en cualquier parte fuera del contenido
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    };
+
+    // Limpiar el carrito después de la compra
+    limpiarCarrito();
 });
 
 // Función para limpiar el carrito
@@ -183,3 +237,5 @@ function limpiarCarrito() {
     updateCart(); // Actualiza la interfaz del carrito
     saveCartToLocalStorage(); // Guarda el carrito vacío en el localStorage
 }
+
+

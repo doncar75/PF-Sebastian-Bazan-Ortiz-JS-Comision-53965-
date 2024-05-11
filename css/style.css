@@ -1,5 +1,5 @@
 /* Estilos generales */
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -19,10 +19,11 @@ header {
     align-items: center;
 }
 
-.title{
+.title {
     font-size: 4rem;
     text-shadow: 6px 6px 10px whitesmoke;
 }
+
 header nav ul {
     list-style-type: none;
     display: flex;
@@ -67,7 +68,7 @@ h2 {
     padding: 20px;
     text-align: center;
     background-color: burlywood;
-    
+
 }
 
 .burger-item img {
@@ -84,6 +85,7 @@ h2 {
     background-color: #333;
     color: #fff;
     border: none;
+    margin: 2px;
     padding: 10px 20px;
     cursor: pointer;
 }
@@ -169,12 +171,19 @@ p {
     margin-bottom: 10px;
 }
 
+.centerM {
+    text-align: center;
+    font-size: 30px;
+}
+
 /* Estilos para tamaños de pantalla pequeños (móviles y tablets) */
 @media only screen and (max-width: 768px) {
+
     /* Estilos para la sección de hamburguesas */
     .burger-list {
         flex-direction: column;
     }
+
     .burger-item {
         margin-bottom: 10px;
     }
@@ -182,10 +191,12 @@ p {
 
 /* Estilos para tamaños de pantalla muy pequeños (móviles) */
 @media only screen and (max-width: 600px) {
+
     /* Estilos para la sección de hamburguesas */
     .burger-list {
         flex-direction: column;
     }
+
     .burger-item {
         margin-bottom: 20px;
     }
@@ -195,6 +206,7 @@ p {
         flex-direction: column;
         align-items: flex-start;
     }
+
     .cart-item .ingredient-list {
         margin-top: 10px;
     }
@@ -202,6 +214,7 @@ p {
 
 /* Estilos para tamaños de pantalla pequeños (móviles y tablets) */
 @media only screen and (max-width: 768px) {
+
     /* Estilos para la sección de hamburguesas */
     header {
         padding: 10px 20px;
@@ -218,6 +231,7 @@ p {
     .burger-list {
         flex-direction: column;
     }
+
     .burger-item {
         margin-bottom: 10px;
     }
@@ -226,10 +240,12 @@ p {
 
 /* Estilos para tamaños de pantalla medianos (desktops) */
 @media only screen and (min-width: 769px) and (max-width: 1024px) {
+
     /* Estilos para la sección de hamburguesas */
     .burger-list {
         flex-direction: row;
     }
+
     .burger-item {
         margin-bottom: 0;
     }
@@ -237,11 +253,69 @@ p {
 
 /* Estilos para tamaños de pantalla grandes (desktops y laptops) */
 @media only screen and (min-width: 1025px) {
+
     /* Estilos para la sección de hamburguesas */
     .burger-list {
         flex-direction: row;
     }
+
     .burger-item {
         margin-bottom: 0;
     }
+}
+
+
+/* Estilos para el modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+#modal-message {
+    margin-top: 1%;
+    text-align: center;
+}
+
+/* Contenido del modal */
+.modal-content {
+    background-color: bisque;
+    margin: 25% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 65%;
+}
+
+/* Estilos para el botón de cerrar */
+.close {
+    color: #6f6a6a;
+    float: right;
+    font-size: 34px;
+    font-weight: bold;
+    margin-top: -2%;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.whatsapp {
+    margin-left: -39%;
+    color: green;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+.whatsapp:hover {
+    color: lime;
+    /* Color al hacer hover */
 }

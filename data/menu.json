@@ -4,14 +4,14 @@
             "nombre": "Hamburguesa Clásica",
             "descripcion": "Con lechuga y tomate",
             "precio": 5000,
-            "imagen": "../images/Hamburguesa_lechuga_tomate.jpg",
+            "imagen": "./images/Hamburguesa_lechuga_tomate.jpg",
             "ingredientes": [
                 {
-                    "nombre": "Chedar",
+                    "nombre": "Chedar ",
                     "precioAdicional": 1500
                 },
                 {
-                    "nombre": "Bacon",
+                    "nombre": "Bacon ",
                     "precioAdicional": 2000
                 }
             ]
@@ -23,7 +23,7 @@
             "imagen": "./images/Hamburguesa_chedar.jpg",
             "ingredientes": [
                 {
-                    "nombre": "Bacon",
+                    "nombre": "Bacon ",
                     "precioAdicional": 2000
                 }
             ]
@@ -35,11 +35,11 @@
             "imagen": "./images/Hamburguesa_doble.jpg",
             "ingredientes": [
                 {
-                    "nombre": "Bacon",
+                    "nombre": "Bacon ",
                     "precioAdicional": 2000
                 },
                 {
-                    "nombre": "Huevo",
+                    "nombre": "Huevo ",
                     "precioAdicional": 1000
                 }
             ]
@@ -51,11 +51,11 @@
             "imagen": "./images/hamburguesa_vegana.jpg",
             "ingredientes": [
                 {
-                    "nombre": "Tofu",
+                    "nombre": "Tofu ",
                     "precioAdicional": 3000
                 },
                 {
-                    "nombre": "Queso Vegano",
+                    "nombre": "Queso Vegano ",
                     "precioAdicional": 2500
                 }
             ]

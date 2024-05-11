@@ -1,19 +1,26 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Doncar Burger</title>
     <link rel="stylesheet" href="./css/style.css">
 </head>
+
 <body>
     <header>
         <img src="./images/logo_doncarb_250x250.jpeg" alt="Logo de Doncar Burger" class="logo">
         <h1 class="title">DONCAR BURGER</h1>
         <nav>
             <ul>
-                <li><a href="#">Menú</a></li>
-                <li><a href="#">Carrito</a></li>
+                <li>
+                    <a href="https://api.whatsapp.com/send?phone=+5491133675130" class="whatsapp" id="whatsapp-link"
+                        target="_blank">
+                        <i class="fa fa-whatsapp icono"> HACE TU PEDIDO ACÁ!</i>
+                        <script src="https://kit.fontawesome.com/eb496ab1a0.js" crossorigin="anonymous"></script>
+                    </a>
+                </li>
             </ul>
         </nav>
     </header>
@@ -52,9 +59,16 @@
             <p>Domicilio: Antonio Beruti 110 2° A|Ciudad Autonoma de Buenos Aires</p>
         </div>
     </footer>
-    
-    
+
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p id="modal-message">Ya has agregado el máximo de este ingrediente al carrito.</p>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/moment/moment.min.js"></script>
     <script src="./js/main.js"></script>
 </body>
+
 </html>
